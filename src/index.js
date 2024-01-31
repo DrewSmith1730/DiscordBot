@@ -1,9 +1,6 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-console.log(process.env.DISCORD_TOKEN);
-console.log(process.env.DISCORD_GUILD);
-
 const { Client, IntentsBitField } = require("discord.js");
 
 const client = new Client ({
@@ -11,9 +8,8 @@ const client = new Client ({
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.MessageContent,
-        IntentsBitField.Flags.GuildMessageReactions
+        IntentsBitField.Flags.MessageContent
     ],
 });
 
-client.login()
+client.login(process.env.DISCORD_TOKEN)
