@@ -4,11 +4,11 @@ const path = require('node:path');
 
 dotenv.config();
 
-const { Client, IntentsBitField } = require("discord.js");
-
+// init all parts of the discord.js used
+const { Client, IntentsBitField, Collection, Events } = require("discord.js");
+// client init with each part of the server(guild) that the bot can see
 const client = new Client ({
     intents: [
-        // bitfields mean the parts of the server(guild) that the bot can access
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMembers,
         IntentsBitField.Flags.GuildMessages,
@@ -17,11 +17,11 @@ const client = new Client ({
     ],
 });
 
-// command handling
+// command handling adding all the commands in the src/commands/utilities file to this for the
+// execution of each command
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
-
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -37,18 +37,33 @@ for (const folder of commandFolders) {
 	}
 }
 
-
 // default
 client.on('ready', (c) => {
     console.log(`${c.user.tag} is online.`);
 
 });
 
-// command function
-client.on(Events.InteractionCreate, interaction => {
-    // not all interations are chat commands this filters it to only use the chat commands
+// command function (this will allow all commands to be read?? i think tbd...)
+client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
-	console.log(interaction);
+
+	const command = interaction.client.commands.get(interaction.commandName);
+
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		if (interaction.replied || interaction.deferred) {
+			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+		} else {
+			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		}
+	}
 });
 
 // basic message reader
