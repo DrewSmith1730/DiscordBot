@@ -5,5 +5,14 @@
 // based on a player id it will load the class of the player next to their name in the list
 // add basic reactions for the players to click onto to add thier names to the given list in the embed
 
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('ping')
+		.setDescription('Replies with Pong!'),
+	async execute(interaction) {
+		
+	},
+};

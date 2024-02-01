@@ -56,6 +56,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 	try {
 		await command.execute(interaction);
+		// the output of these functions handled here?
 	} catch (error) {
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
@@ -71,5 +72,15 @@ client.on('messageCreate', (message) => {
     console.log(message);
     
 });
+
+
+// Node war embeds
+client.on('wartemp', function(wartemp){
+	if(wartemp.author.bot) return // if message was made by bot ignore and move on
+	if(wartemp.content.toLowerCase() === process.env.PREFIX + "wartemplate"){
+		
+	}
+});
+
 
 client.login(process.env.DISCORD_TOKEN)
