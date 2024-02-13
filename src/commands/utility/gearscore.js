@@ -21,6 +21,11 @@ module.exports = {
             option.setName('gs').setDescription('AP+DP or AAP+DP')
         ),
 	async execute(interaction) {
-		var 
+		// this is where the gear score is added to a db 
+        // interaction.user is the object representing the User who ran the command
+		// interaction.member is the GuildMember object, which represents the user in the specific guild
+
+        // place holder code for function testing
+        await interaction.reply(`This command was run by ${interaction.user.username}, who joined on ${interaction.member.joinedAt}.`);
 	},
 };

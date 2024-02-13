@@ -1,11 +1,12 @@
 const dotenv = require("dotenv");
 const fs = require('node:fs');
 const path = require('node:path');
+const mysql = require("mysql2");
 
 dotenv.config();
 
 // init all parts of the discord.js used
-const { Client, IntentsBitField, Collection, Events } = require("discord.js");
+const { Client, IntentsBitField, Collection, Events, Embed, embedLength, EmbedBuilder } = require("discord.js");
 // client init with each part of the server(guild) that the bot can see
 const client = new Client ({
     intents: [
@@ -77,8 +78,28 @@ client.on('messageCreate', (message) => {
 // Node war embeds
 client.on('wartemp', function(wartemp){
 	if(wartemp.author.bot) return // if message was made by bot ignore and move on
-	if(wartemp.content.toLowerCase() === process.env.PREFIX + "wartemplate"){
-		
+	if(wartemp.content.toLowerCase() === process.env.PREFIX + "wartemp"){
+		// create the enbed for the war here
+		const testEmbed = new EmbedBuilder()
+			.setColor(0x0099FF)
+			.setTitle('Node war')
+			.setAuthor({ name: 'Some Name', iconURL: 'https://imgur.com/vhAUdJy', url: 'https://discord.js.org' })
+			.setDescription('Some description here')
+			.setThumbnail('https://imgur.com/vhAUdJy')
+			// will be a for each loop for the arrays of each team
+			// for now atleast each array of players will be stored in a json file with the 
+			.addFields(
+				{ name: 'Regular field title', value: 'Some value here' },
+				{ name: '\u200B', value: '\u200B' },
+				{ name: 'Inline field title', value: 'Some value here', inline: true },
+				{ name: 'Inline field title', value: 'Some value here', inline: true },
+			)
+			.addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
+			.setImage('https://i.imgur.com/AfFp7pu.png')
+			.setTimestamp()
+			.setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+
+		channel.send({ embeds: [testEmbed]});
 	}
 });
 
