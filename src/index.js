@@ -70,38 +70,59 @@ client.on(Events.InteractionCreate, async interaction => {
 
 // basic message reader
 client.on('messageCreate', (message) => {
-    console.log(message);
-    
-});
-
-
-// Node war embeds
-client.on('wartemp', function(wartemp){
-	if(wartemp.author.bot) return // if message was made by bot ignore and move on
-	if(wartemp.content.toLowerCase() === process.env.PREFIX + "wartemp"){
+    // stip chacters that create vulnerabilities
+	// check for prefix right away
+	if (!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+		
+	
+	// split the message for its arguments and command while also remvoing the prefix
+	const args = message.content.slice(process.env.PREFIX.length).trim().split(' ');
+	// takes the first arg out of args and saves it as command
+	const command = args.shift().toLowerCase();
+	
+	if (command === 'wartemp'){
+		console.log(args)
+		console.log(command)
 		// create the enbed for the war here
 		const testEmbed = new EmbedBuilder()
-			.setColor(0x0099FF)
-			.setTitle('Node war')
-			.setAuthor({ name: 'Some Name', iconURL: 'https://imgur.com/vhAUdJy', url: 'https://discord.js.org' })
-			.setDescription('Some description here')
-			.setThumbnail('https://imgur.com/vhAUdJy')
-			// will be a for each loop for the arrays of each team
-			// for now atleast each array of players will be stored in a json file with the 
-			.addFields(
-				{ name: 'Regular field title', value: 'Some value here' },
-				{ name: '\u200B', value: '\u200B' },
-				{ name: 'Inline field title', value: 'Some value here', inline: true },
-				{ name: 'Inline field title', value: 'Some value here', inline: true },
-			)
-			.addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
-			.setImage('https://i.imgur.com/AfFp7pu.png')
-			.setTimestamp()
-			.setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+		.setColor(0x0099FF)
+		.setTitle('Node war')
+		.setAuthor({ name: 'Some Name' })
+		.setDescription('Some description here')
+		// thumbnail small image in to right corner of embed
+		//.setThumbnail('https://imgur.com/vhAUdJy')
+		// will be a for each loop for the arrays of each team
+		// for now atleast each array of players will be stored in a json file with the 
 
-		channel.send({ embeds: [testEmbed]});
+		// temparray.forEach(entry => {
+		// 	embed.addField(entry, 'looped field');
+		//   });
+
+		.addFields(
+			{ name: 'Regular field title', value: 'Some value here' },
+			{ name: '\u200B', value: '\u200B' },
+			{ name: 'Inline field title', value: 'Some value here', inline: true },
+			{ name: 'Inline field title', value: 'Some value here', inline: true },
+		)
+		.addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
+		.setTimestamp()
+		.setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+		
+		message.channel.send({ embeds: [testEmbed]}).then(embedMessage => {
+			embedMessage.react("✅");
+			embedMessage.react("❌");
+		});
 	}
 });
 
+// client.on(Events.InteractionCreate, )
+// 
+	// write the user to a json file using this basic format
+	// fs.writeFile("./blocked.json", JSON.stringify({ blockedUsers }), function(err) {
+	// 	if(err) {
+	// 		return console.log(err);
+	// 	}
+	// 	console.log("The file was saved!");
+	// }); 
 
 client.login(process.env.DISCORD_TOKEN)
