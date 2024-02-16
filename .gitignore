@@ -1,6 +1,5 @@
 node_modules
 .env
-package-lock.json
 options.js
 tempstore.json
 tempfile.js

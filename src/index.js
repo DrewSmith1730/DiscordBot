@@ -81,14 +81,12 @@ client.on('messageCreate', (message) => {
 	const command = args.shift().toLowerCase();
 	
 	if (command === 'wartemp'){
-		console.log(args)
-		console.log(command)
 		// create the enbed for the war here
 		const testEmbed = new EmbedBuilder()
 		.setColor(0x0099FF)
-		.setTitle('Node war')
-		.setAuthor({ name: 'Some Name' })
-		.setDescription('Some description here')
+		.setAuthor({ name: 'Disband Guild Alliance Node War Sign Up' })
+		.setTitle('Date for the given node war')
+		.setDescription('React with the given options do not react more then once')
 		// thumbnail small image in to right corner of embed
 		//.setThumbnail('https://imgur.com/vhAUdJy')
 		// will be a for each loop for the arrays of each team
@@ -100,23 +98,26 @@ client.on('messageCreate', (message) => {
 
 		.addFields(
 			{ name: 'Regular field title', value: 'Some value here' },
-			{ name: '\u200B', value: '\u200B' },
-			{ name: 'Inline field title', value: 'Some value here', inline: true },
-			{ name: 'Inline field title', value: 'Some value here', inline: true },
+			//{ name: '\u200B', value: '\u200B' },
+			{ name: 'Inline field title', value: 'Some value here', inline: true},
+			{ name: 'Inline field title', value: 'Some value here', inline: true},
 		)
-		.addFields({ name: 'Inline field title', value: 'Some value here', inline: true })
+		.addFields({ name: 'Inline field title', value: 'Some value here', inline: true  })
 		.setTimestamp()
-		.setFooter({ text: 'Some footer text here', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
+		.setFooter({ text: 'War Template creation embed', iconURL: 'https://i.imgur.com/AfFp7pu.png' });
 		
 		message.channel.send({ embeds: [testEmbed]}).then(embedMessage => {
-			embedMessage.react("✅");
-			embedMessage.react("❌");
+			// ensure react order to message
+			embedMessage.react("✅")
+			.then(() => embedMessage.react("❌"));
 		});
 	}
 });
 
 // client.on(Events.InteractionCreate, )
-// 
+// 	if (!interaction.isChatInputCommand()) return; // ensures no weird errors occur
+
+
 	// write the user to a json file using this basic format
 	// fs.writeFile("./blocked.json", JSON.stringify({ blockedUsers }), function(err) {
 	// 	if(err) {
