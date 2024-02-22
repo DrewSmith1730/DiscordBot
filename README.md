@@ -12,6 +12,7 @@
 ###### ENV [✓]
 ###### Commands basic ping test [✓]
 ###### basic ! commands set up [✓]
+
 ###### adding to embed information based off reactions
 ###### rereadin old war enbeds to get info and be updateable agian on restart of bot
 ###### basic html to image design that updates
@@ -20,7 +21,7 @@
 ###### allow the bot to handle guild events for the node wars 
 ###### /gear @player to post their info and gear in an inbed (also an html to img)
 ###### talk to ashe about other features he would want in the bot
-###### 
+###### be able to create events at times and stuff (for wars and other things)
 ###### 
 ###### 
 ###### 
