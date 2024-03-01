@@ -11,6 +11,8 @@
   "dependencies": {
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.1",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.0",
     "mysql2": "^3.9.1",
     "node-html-to-image": "^4.0.0"
   }

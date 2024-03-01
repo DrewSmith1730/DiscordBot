@@ -11,15 +11,10 @@
 ###### ENV [✓]
 ###### Commands basic ping test [✓]
 ###### basic ! commands set up [✓]
-###### adding to embed information based off reactions
-###### rereadin old war enbeds to get info and be updateable agian on restart of bot (pull embed that already exists and ensure it can be adjusted)
-###### basic html to image design that updates
-###### Data base connection
-###### store gear score along with other relevent player data
-###### allow the bot to handle guild events for the node wars 
-###### /gear @player to post their info and gear in an inbed (also an html to img)
-###### talk to ashe about other features he would want in the bot
-###### be able to create events at times and stuff (for wars and other things)
-###### 
-###### 
-###### 
+###### add array information to embeds []
+###### update the arrays based on reactions []
+###### connect to mongodb []
+###### set up player database with shema []
+###### pull command for @player name []
+###### []
+
